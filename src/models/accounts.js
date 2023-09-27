@@ -26,6 +26,12 @@ const accountSchema = new mongoose.Schema({
       validator: (value) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value),
       message: "Informe um endereço de e-mail válido.",
     },
+
+  },
+
+  level: {
+    type: Number,
+    default: 1, // Define o valor padrão como 1
   },
   data: {
     type: Date,
