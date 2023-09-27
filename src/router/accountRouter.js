@@ -5,5 +5,6 @@ const routes = Express.Router();
 
 routes.get("/account", accountController.accountList);
 routes.post("/account", accountController.accountRegister);
+routes.post('/get-password', accountController.getPasswordByEmail);
 
 export default routes

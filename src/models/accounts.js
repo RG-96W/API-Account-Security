@@ -4,6 +4,7 @@ const accountSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
   login: {
     type: String,
+    unique: true,
     required: true,
     validate: {
       validator: (value) => /^[a-zA-Z0-9]{4,}$/.test(value),
@@ -20,6 +21,7 @@ const accountSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
     validate: {
       validator: (value) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value),
       message: "Informe um endereço de e-mail válido.",
