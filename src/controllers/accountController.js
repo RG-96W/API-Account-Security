@@ -21,26 +21,28 @@ class accountController {
           }
         }
         
-    static async getPasswordByEmail(req, res) {
-        try {
-          const { email } = req.body;
-          console.log(`Email recebido na solicitação: ${email}`);
-    
-          const accountInfo = await account.findOne({ email });
-    
-          if (!accountInfo) {
-            console.log("Conta não encontrada no banco de dados");
-            return res.status(404).json({ message: "Conta não encontrada" });
+        static async getPasswordByEmail(req, res) {
+          try {
+            const { email } = req.body;
+            console.log(`Email recebido na solicitação: ${email}`);
+        
+            const accountInfo = await account.findOne({ email });
+        
+            if (!accountInfo) {
+              console.log("Conta não encontrada no banco de dados");
+              return res.status(404).json({ message: "Conta não encontrada" });
+            }
+        
+            const { password } = accountInfo;
+            console.log(`Senha encontrada: ${password}`);
+            
+            // Retorne a senha como parte da resposta JSON
+            res.status(200).json({ password });
+          } catch (error) {
+            console.error(`Erro ao buscar senha pelo email: ${error.message}`);
+            res.status(500).json({ message: `Falha na requisição` });
           }
-    
-          const { password } = accountInfo;
-          console.log(`Senha encontrada: ${password}`);
-          res.status(200).json({ password });
-        } catch (error) {
-          console.error(`Erro ao buscar senha pelo email: ${error.message}`);
-          res.status(500).json({ message: `Falha na requisição` });
         }
-      }
 
 }
 
