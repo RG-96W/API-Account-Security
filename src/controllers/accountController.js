@@ -1,5 +1,8 @@
 import account from "../models/accounts.js"
 
+
+
+
 class accountController {
 
     static async accountList (req, res) {
@@ -44,6 +47,27 @@ class accountController {
           }
         }
 
-}
+        static async login(req, res) {
+          try {
+            const { login, password } = req.body;
+      
+            // Faça a lógica de autenticação aqui
+            // Consulte o banco de dados para verificar se o usuário existe e se a senha está correta
+      
+            // Por exemplo, consulte o banco de dados para encontrar o usuário
+            const user = await account.findOne({ login, password });
+      
+            if (!user) {
+              return res.status(401).json({ message: 'Credenciais inválidas' });
+            }
+      
+            // Se a autenticação for bem-sucedida, você pode simplesmente retornar uma resposta de sucesso
+            res.status(200).json({ message: 'Autenticação bem-sucedida' });
+          } catch (error) {
+            console.error('Erro ao processar a solicitação de login:', error);
+            res.status(500).json({ message: 'Erro interno do servidor' });
+          }
+        }
+      }
 
 export default accountController;
