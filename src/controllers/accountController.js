@@ -1,7 +1,8 @@
 import account from "../models/accounts.js"
-
-
-
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
+const SECRET_KEY_SECURE = process.env.SECRET_KEY;
 
 class accountController {
 
@@ -62,12 +63,19 @@ class accountController {
             }
       
             // Se a autenticação for bem-sucedida, você pode simplesmente retornar uma resposta de sucesso
-            res.status(200).json({ message: 'Autenticação bem-sucedida' });
+            const token = jwt.sign({ login }, SECRET_KEY_SECURE, { expiresIn: '1h' });
+
+            res.status(200).json({auth: true, token })
+            // res.status(200).json({ message: 'Autenticação bem-sucedida' });
+
           } catch (error) {
             console.error('Erro ao processar a solicitação de login:', error);
             res.status(500).json({ message: 'Erro interno do servidor' });
           }
         }
+
+
+
       }
 
 export default accountController;
