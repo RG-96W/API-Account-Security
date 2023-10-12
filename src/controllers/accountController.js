@@ -62,10 +62,11 @@ class accountController {
               return res.status(401).json({ message: 'Credenciais inválidas' });
             }
       
+
             // Se a autenticação for bem-sucedida, você pode simplesmente retornar uma resposta de sucesso
             const token = jwt.sign({ login }, SECRET_KEY_SECURE, { expiresIn: '1h' });
 
-            res.status(200).json({auth: true, token, login })
+            res.status(200).json({ auth: true, token, login, level: user.level });
             // res.status(200).json({ message: 'Autenticação bem-sucedida' });
 
           } catch (error) {
