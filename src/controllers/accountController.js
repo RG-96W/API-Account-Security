@@ -6,6 +6,24 @@ const SECRET_KEY_SECURE = process.env.SECRET_KEY;
 
 class accountController {
 
+
+
+  static async accountId(req, res) {
+    try {
+      const accountId = req.params.id;
+      // Assumindo que você está usando algum mecanismo para acessar o banco de dados (por exemplo, MongoDB)
+      const accounts = await account.findOne({ _id: accountId });
+  
+      if (!accounts) {
+        return res.status(404).json({ message: 'Conta não encontrada' });
+      }
+  
+      res.status(200).json(accounts);
+    } catch (error) {
+      res.status(500).json({ message: `${error.message} - falha na requisição` });
+    }
+  };
+
     static async accountList (req, res) {
         try {
             const accountList = await account.find({});
@@ -14,6 +32,7 @@ class accountController {
             res.status(500).json({ message: `${erro.message} - falha na requisição` });
           }
         };
+
         static async accountRegister(req, res) {
           try {
             const newAccount = await account.create(req.body);

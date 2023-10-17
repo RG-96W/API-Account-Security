@@ -19,5 +19,6 @@ routes.get("/account", verifyJWT, (req, res) => {
 routes.post("/account", accountController.accountRegister);
 routes.post('/get-password', accountController.getPasswordByEmail);
 routes.post('/login', accountController.login);
+routes.get("/account/:id", accountController.accountId);
 
 export default routes
