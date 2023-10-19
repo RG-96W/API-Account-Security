@@ -20,5 +20,6 @@ routes.post("/account", accountController.accountRegister);
 routes.post('/get-password', accountController.getPasswordByEmail);
 routes.post('/login', accountController.login);
 routes.get("/account/:id", accountController.accountId);
+routes.put("/account/:login", accountController.accountLogin)
 
 export default routes

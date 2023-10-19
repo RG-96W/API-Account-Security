@@ -95,7 +95,45 @@ class accountController {
         }
 
 
+        static async accountUpdate(req, res) {
+          try {
+            const newAccount = await account.create(req.body);
+            res.status(201).json({ message: "Cadastrado com sucesso", account: newAccount });
+          } catch (error) {
+            console.error('Erro ao processar a solicitação POST:', error);
+            // Envie uma resposta de erro
+            res.status(500).send('Erro interno do servidor.');
+          }
+        }
 
+        static async accountLogin(req, res) {
+          let updateUser = req.body;
+          try {
+            const login = req.params.login;
+            
+            if (!login) {
+              return res.status(400).json({ message: 'Parâmetro de login ausente na rota' });
+            }
+        
+            const user = await account.findOneAndUpdate({ login }, updateUser, { new: true });
+        
+            if (!user) {
+              return res.status(400).json({ message: 'Erro nos parâmetros do usuário!' });
+            }
+        
+        
+            if (!updateUser) {
+              return res.status(400).json({ message: 'Erro na requisição!' });
+            }
+        
+            // Atualize o usuário no banco de dados com os dados em updateUser
+            // Esta parte está faltando no seu código atual
+        
+            res.status(200).json({ message: 'Login atualizado com sucesso', updateUser });
+          } catch (error) {
+            res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
+          }
+        }
       }
 
 export default accountController;
