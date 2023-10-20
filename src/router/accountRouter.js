@@ -21,5 +21,6 @@ routes.post('/get-password', accountController.getPasswordByEmail);
 routes.post('/login', accountController.login);
 routes.get("/account/:id", accountController.accountId);
 routes.put("/account/:login", accountController.accountLogin)
+routes.delete("/account/:login",accountController.accountDelete)
 
 export default routes

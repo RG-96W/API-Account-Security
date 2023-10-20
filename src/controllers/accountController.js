@@ -134,6 +134,26 @@ class accountController {
             res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
           }
         }
+
+        static async accountDelete(req, res) {
+          try {
+            const login = req.params.login;
+            console.log(`Login recebido na solicitação: ${login}`);
+        
+            const accountInfo = await account.findOne({ login });
+        
+            if (!accountInfo) {
+              console.log("Conta não encontrada no banco de dados");
+              return res.status(404).json({ message: "Conta não encontrada" });
+            }
+            await account.deleteOne({ login });
+            console.log(`Conta excluída com sucesso: ${login}`);
+            res.status(204).send(); // 204 No Content indica que a exclusão foi bem-sucedida
+          } catch (error) {
+            console.error(`Erro ao excluir conta: ${error.message}`);
+            res.status(500).json({ message: "Falha na requisição" });
+          }
+        }
       }
 
 export default accountController;
